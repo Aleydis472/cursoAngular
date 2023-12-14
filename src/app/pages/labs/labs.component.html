@@ -1,0 +1,40 @@
+<p>{{name()}}</p>
+
+
+<input type="text" [value]="name()" (change)="changeHandle($event)">
+
+<ul>
+    <li *ngFor="let task of task() index  as i">
+        {{i}} {{task }}
+    </li>
+</ul>
+
+<div [ngSwitch]="name()">
+    <p *ngSwitchCase="'Ale'">Yo soy ale</p>
+    <p *ngSwitchCase="'Juan'">Yo soy Juan</p>
+    <p *ngSwitchDefault="'Ale'">Yo no soy nadie</p>
+</div>
+
+<hr>
+
+<input type="color" [formControl]="colorCtrl">
+<p>color: {{colorCtrl.value}}</p>
+
+<svg> <!-- Agregar estilos a un svg -->
+    <g>
+        <rect x="0" y="0" height="100" width="100" [attr.fill]="colorCtrl.value" />
+    </g>
+</svg>
+<hr>
+<input type="number" [formControl]="withCtrl">
+<span class="box" [style.width.px]="withCtrl.value"></span>
+
+<hr>
+<p>
+
+    <input type="text" [formControl]="nameCtrl"> <br />
+    <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre invalido</span>
+</p>
+<p>
+    <input type="text">
+</p>
