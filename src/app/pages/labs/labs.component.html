@@ -1,40 +1,78 @@
 <p>{{name()}}</p>
-
-
 <input type="text" [value]="name()" (change)="changeHandle($event)">
 
+<!-- VERSION 17 -->
 <ul>
-    <li *ngFor="let task of task() index  as i">
-        {{i}} {{task }}
-    </li>
+  @for (task of task(); track task; let i = $index) {
+  <!-- track(es obligarotio) elemento unico en esa lista  let i = index identificador donde va a ir -->
+  <li>
+    {{i}} {{task }}
+  </li>
+  }@empty {
+  <li><strong>la liusta esta en vacio</strong></li>
+  } <!-- empty si esa lista esta en vacío -->
 </ul>
-
-<div [ngSwitch]="name()">
-    <p *ngSwitchCase="'Ale'">Yo soy ale</p>
-    <p *ngSwitchCase="'Juan'">Yo soy Juan</p>
-    <p *ngSwitchDefault="'Ale'">Yo no soy nadie</p>
+<!-- Esta forma tiene mayor rendimiento en el DOM -->
+<!-- antes version. < 17  -->
+@if (name() === 'nicolas') {
+<div>
+  Soy nicolas.
 </div>
-
+}
+<!-- ahora version = 17 -->
+@if (name() === 'Ale') {
+<div>soy nicolas</div>
+}
+@if (name() === 'Ale') {
+<div>Hola</div>
+}@else{
+<div>Ese no es mi nombre.</div>
+}
+<div>
+  @switch (name()) {
+  @case ('Ale') {
+  <p>Yo soy ale</p>
+  }
+  @case ('Juan') {
+  <p>Yo soy Juan</p>
+  }
+  @default {
+  <p>Yo no soy nadie</p>
+  }
+  }
+</div>
+<div>
+  @switch (name()) {
+  @case ('nicolas') {
+  <p>Yo soy nicolas</p>
+  }
+  @case ('Ale') {
+  <p>Yo soy Ale</p>
+  }
+  @case ('Juan') {
+  <p>Yo soy juan</p>
+  }
+  @default {
+  <p>yo no soy nadie</p>
+  }
+  }
+</div>
 <hr>
-
 <input type="color" [formControl]="colorCtrl">
 <p>color: {{colorCtrl.value}}</p>
-
 <svg> <!-- Agregar estilos a un svg -->
-    <g>
-        <rect x="0" y="0" height="100" width="100" [attr.fill]="colorCtrl.value" />
-    </g>
+  <g>
+    <rect x="0" y="0" height="100" width="100" [attr.fill]="colorCtrl.value" />
+  </g>
 </svg>
 <hr>
 <input type="number" [formControl]="withCtrl">
 <span class="box" [style.width.px]="withCtrl.value"></span>
-
 <hr>
 <p>
-
-    <input type="text" [formControl]="nameCtrl"> <br />
-    <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre invalido</span>
+  <input type="text" [formControl]="nameCtrl"> <br />
+  <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre invalido</span>
 </p>
 <p>
-    <input type="text">
+  <input type="text">
 </p>
